@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pawfect Pawtrails – adopt a dog or cat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f7faff;--surface:#fff;--ink:#1b2140;--muted:#566080;--line:#d9e1f2;--sky:#dcecff;--gold:#ffc83d;--leaf:#1f8a5f;--on-gold:#1b2140;--shadow:0 6px 20px rgba(27,33,64,.08);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10142b;--surface:#1a2040;--ink:#eef1ff;--muted:#a7b0d3;--line:#2c3562;--sky:#232b55;--leaf:#4fd19b;--shadow:none}}
+:root[data-theme="dark"]{--bg:#10142b;--surface:#1a2040;--ink:#eef1ff;--muted:#a7b0d3;--line:#2c3562;--sky:#232b55;--leaf:#4fd19b;--shadow:none}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.logo{font:800 1.2rem 'Bricolage Grotesque',sans-serif;text-decoration:none}
+.nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;font-weight:500;font-size:.95rem}
+.nav a{text-decoration:none;color:var(--muted)}.nav a:hover{color:var(--ink)}
+@media(max-width:700px){.nav ul{display:none}}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 22px;font:600 1rem Figtree,sans-serif;cursor:pointer;text-decoration:none;background:var(--gold);color:var(--on-gold)}
+.btn.alt{background:transparent;border:2px solid var(--ink);color:var(--ink)}
+.btn.sm{padding:8px 16px;font-size:.9rem}
+.hero{padding:56px 0 40px}
+.hero h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:800;max-width:14ch;letter-spacing:-.02em}
+.hero p{max-width:50ch;color:var(--muted);font-size:1.15rem;margin:18px 0 26px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.leash{position:relative;margin-top:44px;padding-top:34px;display:flex;gap:18px;overflow-x:auto;padding-bottom:14px}
+.leash::before{content:"";position:absolute;left:0;right:0;top:14px;height:4px;background:var(--ink);border-radius:2px}
+.tag{flex:0 0 150px;position:relative;background:var(--gold);color:var(--on-gold);border:0;border-radius:18px 18px 28px 28px;padding:26px 14px 16px;text-align:center;cursor:pointer;font:inherit;transform-origin:top center}
+.tag::before{content:"";position:absolute;top:9px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+.tag b{display:block;font:800 1.4rem 'Bricolage Grotesque',sans-serif}
+.tag span{font-size:.85rem}.tag i{font-style:normal;font-size:2rem;display:block}
+.tag:nth-child(even){background:var(--sky);color:var(--ink)}
+@media(prefers-reduced-motion:no-preference){.tag{animation:sway 1.4s ease-out both}.tag:nth-child(2){animation-delay:.12s}.tag:nth-child(3){animation-delay:.24s}.tag:nth-child(4){animation-delay:.36s}.tag:nth-child(5){animation-delay:.48s}
+@keyframes sway{0%{transform:rotate(-14deg)}35%{transform:rotate(9deg)}65%{transform:rotate(-4deg)}100%{transform:rotate(0)}}}
+section{padding:56px 0}
+section.tint{background:var(--sky)}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:10px;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:56ch;margin:0 0 28px}
+.filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 18px;font:600 .95rem Figtree,sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .pic{height:130px;display:grid;place-items:center;font-size:3.4rem}
+.card .body{padding:16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{font-size:1.3rem}
+.card dl{margin:4px 0 12px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:.92rem;color:var(--muted)}
+.card dt{font-weight:600;color:var(--ink)}.card dd{margin:0}
+.card .btn{margin-top:auto;text-align:center}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;counter-reset:s;padding:0;list-style:none;margin:0}
+.steps li{counter-increment:s;background:var(--surface);border-radius:18px;padding:22px;border:1px solid var(--line)}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--bg);font:800 1.1rem 'Bricolage Grotesque',sans-serif;margin-bottom:10px}
+.steps h3{font-size:1.2rem;margin-bottom:4px}.steps p{margin:0;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+form{display:grid;gap:12px}
+label{display:grid;gap:4px;font-weight:600;font-size:.92rem}
+input,select,textarea{font:400 1rem Figtree,sans-serif;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row{grid-template-columns:1fr}}
+.ok{padding:14px 16px;border-radius:12px;background:var(--surface);border:2px solid var(--leaf);color:var(--ink)}
+.tips{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.tips li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tips b{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem}
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.story{background:var(--surface);border-left:6px solid var(--gold);border-radius:6px 18px 18px 6px;padding:20px;box-shadow:var(--shadow)}
+.story p{color:var(--muted);margin:6px 0 0}
+.donate{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+dialog{border:0;border-radius:20px;padding:26px;width:min(480px,92vw);background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(10,14,35,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+body.blur>main,body.blur>header.top,body.blur>footer,body.blur>.tabbar{filter:blur(8px)}
+dialog h2{font-size:1.6rem}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hide{display:none!important}
+.acct{display:flex;align-items:center;gap:8px}#who{font-weight:600;font-size:.9rem}
+@media(max-width:560px){#who{display:none}}
+.card .price{font:800 1.3rem 'Bricolage Grotesque',sans-serif}
+.card .pic.s{height:96px;font-size:2.6rem;background:var(--sky)}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.pay{display:grid;gap:8px;border:0;padding:0;margin:0}.pay legend{font-weight:600;font-size:.92rem;margin-bottom:4px}
+.pay label{display:flex;gap:10px;align-items:center;font-weight:500;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}.pay input{width:auto}
+.total{font:800 1.3rem 'Bricolage Grotesque',sans-serif}
+.err{color:#c0392b;font-weight:600;margin:0}
+@media(prefers-color-scheme:dark){.err{color:#ff8a7a}}
+.bk{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.bk .acts{display:flex;gap:8px}
+.badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--sky)}.badge.p{background:var(--leaf);color:#fff}
+body{padding-bottom:76px}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));gap:4px}
+.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:12px;text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:600}
+.tabbar a i{font-style:normal;font-size:1.3rem;line-height:1}
+.tabbar a.on{background:var(--sky);color:var(--ink)}
+.pill{display:inline-flex;gap:8px;align-items:center;border-radius:999px;padding:6px 14px;font-weight:600;background:var(--surface);color:var(--ink);border:2px solid var(--line)}
+.pill::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--muted)}
+.pill.open::before{background:var(--leaf)}.pill.closed::before{background:#c0392b}
+.hrs{width:100%;max-width:420px;border-collapse:collapse;margin-bottom:12px}
+.hrs td{padding:10px 12px;border-bottom:1px solid var(--line)}.hrs td:last-child{text-align:right}
+.hrs tr.now{font-weight:700;background:var(--surface)}
+/* ---- responsive: phone, tablet, laptop, large screens ---- */
+html{-webkit-text-size-adjust:100%}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px}.btn.sm{min-height:40px}
+.chip{min-height:44px}
+input,select,textarea{min-height:44px}textarea{min-height:0}
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr))}
+dialog{width:min(480px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}
+@media(max-width:900px){.nav ul{display:none}}
+@media(min-width:1200px){.wrap{max-width:1240px}html{font-size:17px}}
+@media(min-width:900px){.tabbar{left:50%;right:auto;width:min(520px,90vw);transform:translateX(-50%);bottom:14px;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(0,0,0,.18)}body{padding-bottom:104px}}
+@media(max-width:700px){.hero{padding:36px 0 24px}.leash{margin-top:32px}section{padding:40px 0}}
+@media(max-width:560px){.wrap{padding:0 16px}.logo{font-size:1.05rem}#mine{display:none}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.card .pic{height:100px;font-size:2.6rem}.card .pic.s{height:72px;font-size:2rem}.card .body{padding:12px}.card h3{font-size:1.1rem}.card .btn{padding:10px 12px;font-size:.92rem}.hero .cta .btn{flex:1}.tag{flex-basis:130px}.steps{grid-template-columns:1fr}.bk .acts{width:100%}.tabbar a{font-size:.7rem}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+@media(max-height:500px) and (orientation:landscape){.tabbar a{flex-direction:row;justify-content:center;gap:6px}.tabbar a i{font-size:1.1rem}}
+.atab{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 18px;font:600 .95rem Figtree,sans-serif;cursor:pointer;min-height:44px}.atab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hrow{display:grid;grid-template-columns:44px auto 1fr 1fr;gap:8px;align-items:center;margin-bottom:6px}.hrow label{display:flex;gap:6px;align-items:center;font-weight:500}.hrow input[type=checkbox]{width:auto;min-height:0}
+#pf,#sf2{display:grid;gap:12px}@media(max-width:560px){#adm{padding:8px 12px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+  <a class="logo" href="#top">🐾 Pawfect Pawtrails</a>
+  <ul><li><a href="#browse">Browse pets</a></li><li><a href="#process">How it works</a></li><li><a href="#services">Services</a></li><li><a href="#care">Pet care</a></li><li><a href="#stories">Stories</a></li><li><a href="#involved">Get involved</a></li></ul>
+  <div class="acct"><span id="who" class="hide"></span><a class="btn alt sm hide" id="mine" href="#bookings">My bookings</a><button class="btn alt sm hide" id="adm">Admin</button><button class="btn sm" id="authbtn">Log in</button></div>
+</div></header>
+
+<main id="top">
+<div class="wrap hero">
+  <h1>Every pet here has a tag. None has a home yet.</h1>
+  <p>Pawfect Pawtrails connects dogs and cats with families, and keeps them healthy afterwards with vet booking and care advice.</p>
+  <div style="margin-bottom:16px"><span class="ostat pill">Checking hours…</span></div>
+  <div class="cta"><a class="btn" href="#browse">Meet the pets</a><a class="btn alt" href="#process">See how adoption works</a></div>
+  <div class="leash" id="leash" aria-label="Pets looking for homes"></div>
+</div>
+
+<section id="browse"><div class="wrap">
+  <h2>Browse pets</h2>
+  <p class="lede">Pick a pet to start an adoption application. We’ll follow up by email to arrange a meeting.</p>
+  <div class="filters" role="group" aria-label="Filter pets">
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="dog" aria-pressed="false">Dogs</button>
+    <button class="chip" data-f="cat" aria-pressed="false">Cats</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="process" class="tint"><div class="wrap">
+  <h2>How adoption works</h2>
+  <p class="lede">Three steps from first look to first night at home.</p>
+  <ol class="steps">
+    <li><h3>Browse</h3><p>Look through our dogs and cats and shortlist the ones that fit your home.</p></li>
+    <li><h3>Apply</h3><p>Fill in the short adoption form with your contact details and why you’d like the pet.</p></li>
+    <li><h3>Meet and take home</h3><p>We contact you, set up a meeting, and finalise the adoption once you’re both happy.</p></li>
+  </ol>
+</div></section>
+
+<section id="services" class="tint"><div class="wrap">
+  <h2>Services for your pet</h2>
+  <p class="lede">Grooming, health care and more. Prices are examples; set your own before going live.</p>
+  <div class="filters" role="group" aria-label="Filter services">
+    <button class="chip sf" data-g="all" aria-pressed="true">All</button><button class="chip sf" data-g="Grooming" aria-pressed="false">Grooming</button><button class="chip sf" data-g="Health" aria-pressed="false">Health care</button><button class="chip sf" data-g="Everyday" aria-pressed="false">Training and stays</button>
+  </div>
+  <div class="grid" id="svc"></div>
+  <h3 style="margin:36px 0 12px;font-size:1.5rem">How booking and payment work</h3>
+  <ol class="steps">
+    <li><h3>Log in</h3><p>Create a free account or log in with the button at the top. Log out from the same place.</p></li>
+    <li><h3>Choose a service</h3><p>Press Book on a service, then enter your pet’s details, a date and a time slot.</p></li>
+    <li><h3>Pick how to pay</h3><p>Pay at the clinic, or choose card, GCash, Maya or PayPal.</p></li>
+    <li><h3>Manage it</h3><p>See, pay for or cancel bookings under My bookings.</p></li>
+  </ol>
+  <div id="bookings" style="margin-top:40px"><h3 style="font-size:1.5rem;margin-bottom:12px">My bookings</h3><div id="blist" class="tips"></div></div>
+</div></section>
+
+<section id="care"><div class="wrap two">
+  <div>
+    <h2>Request a vet callback</h2>
+    <p class="lede">Not sure what your pet needs? Tell us and a vet will get back to you. To book and pay for a service, use the Services section above.</p>
+    <form id="vet">
+      <div class="row"><label>Pet’s name<input name="pet" required></label><label>Owner’s name<input name="owner" required></label></div>
+      <div class="row"><label>Email<input type="email" name="email" required></label><label>Phone<input type="tel" name="phone" required></label></div>
+      <label>Area or location<input name="loc" required></label>
+      <div class="row"><label>Preferred date<input type="date" name="date" required></label><label>Preferred time<input type="time" name="time" required></label></div>
+      <label>Reason for visit<textarea name="why" rows="2"></textarea></label>
+      <button class="btn" type="submit">Request appointment</button>
+      <div class="ok hide" role="status"></div>
+    </form>
+  </div>
+  <div>
+    <h2>Everyday care basics</h2>
+    <p class="lede">Simple habits that keep a new pet well.</p>
+    <ul class="tips">
+      <li><b>Food</b><br>Feed a diet made for your pet’s species and age, and keep fresh water out all day.</li>
+      <li><b>Grooming</b><br>Brush regularly, bathe with pet-safe shampoo, and use wipes between baths.</li>
+      <li><b>Play</b><br>Daily walks for dogs and toys for cats keep them fit and stop boredom.</li>
+      <li><b>Vet visits</b><br>Book a first check-up soon after adoption and keep vaccinations up to date.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="stories" class="tint"><div class="wrap">
+  <h2>Success stories</h2>
+  <p class="lede">Pets who found their people.</p>
+  <div class="stories">
+    <article class="story"><h3>Buddy’s journey</h3><p>A rescue dog who found his forever home with the Miller family.</p></article>
+    <article class="story"><h3>Whiskers’ new life</h3><p>An abandoned cat who got a second chance and a loving family.</p></article>
+    <article class="story"><h3>Rescuing Rocky</h3><p>A boxer who went from shelter to sofa and never looked back.</p></article>
+  </div>
+</div></section>
+
+<section id="involved"><div class="wrap two">
+  <div>
+    <h2>Volunteer</h2>
+    <p class="lede">Walk dogs, help at events, or spread the word.</p>
+    <form id="vol">
+      <label>Name<input name="n" required></label>
+      <div class="row"><label>Email<input type="email" name="e" required></label><label>Phone<input type="tel" name="p" required></label></div>
+      <label>Where would you like to help?
+        <select name="a"><option>Dog walking</option><option>Cat care</option><option>Events and fundraising</option><option>Transport</option></select></label>
+      <label>Message<textarea name="m" rows="2"></textarea></label>
+      <button class="btn" type="submit">Sign up to volunteer</button>
+      <div class="ok hide" role="status"></div>
+    </form>
+  </div>
+  <div>
+    <h2>Donate</h2>
+    <p class="lede">Gifts pay for food, vaccinations and shelter space.</p>
+    <div class="donate" id="amts"></div>
+    <p id="donmsg" class="ok hide" role="status"></p>
+  </div>
+</div></section>
+
+<section id="hours" class="tint"><div class="wrap">
+  <h2>Opening hours</h2>
+  <p class="lede"><span class="ostat pill">Checking hours…</span></p>
+  <table class="hrs" id="hrt"></table>
+  <p style="color:var(--muted);font-size:.9rem">Hours are examples. Open or closed is worked out from your device’s clock.</p>
+</div></section>
+</main>
+
+<nav class="tabbar" aria-label="Quick navigation">
+  <a href="#top"><i>🏠</i>Home</a>
+  <a href="#bookings"><i>📅</i>Appointments</a>
+  <a href="#services"><i>✂️</i>Services</a>
+  <a href="#hours"><i>🕒</i>Hours</a>
+</nav>
+
+<footer><div class="wrap"><span>🐾 Pawfect Pawtrails</span><span>Demo site: forms don’t send data anywhere yet.</span></div></footer>
+
+<dialog id="dlg" aria-labelledby="dt">
+  <h2 id="dt">Adopt</h2>
+  <form id="adopt" style="margin-top:14px">
+    <label>Your name<input name="n" required></label>
+    <div class="row"><label>Email<input type="email" name="e" required></label><label>Phone<input type="tel" name="p" required></label></div>
+    <label>Address<input name="a" required></label>
+    <label>Why would you like to adopt?<textarea name="r" rows="3" required></textarea></label>
+    <div style="display:flex;gap:10px"><button class="btn" type="submit">Send application</button><button class="btn alt" type="button" id="cancel">Cancel</button></div>
+  </form>
+  <div id="done" class="hide"><p class="ok" role="status"></p><button class="btn" id="close" style="margin-top:14px">Close</button></div>
+</dialog>
+
+<dialog id="auth" aria-labelledby="at">
+  <h2 id="at">Log in</h2>
+  <div class="tabs"><button class="chip" id="tl" aria-pressed="true">Log in</button><button class="chip" id="ts" aria-pressed="false">Create account</button></div>
+  <form id="af">
+    <label id="nl" class="hide">Your name<input name="n" autocomplete="name"></label>
+    <label>Email<input type="email" name="e" required autocomplete="email"></label>
+    <label>Password<input type="password" name="p" required minlength="6" autocomplete="current-password"></label>
+    <p class="err hide" id="ae" role="alert"></p>
+    <div style="display:flex;gap:10px"><button class="btn" type="submit" id="asub">Log in</button><button class="btn alt" type="button" id="acancel">Browse as guest</button></div>
+    <small style="color:var(--muted)">Demo accounts are saved only in this browser. Don’t reuse a real password.</small>
+  </form>
+</dialog>
+<dialog id="bd" aria-labelledby="bt">
+  <h2 id="bt">Book</h2>
+  <form id="bf" style="margin-top:14px">
+    <div class="row"><label>Pet’s name<input name="pet" required></label><label>Pet type<select name="t"><option>Dog</option><option>Cat</option></select></label></div>
+    <div class="row"><label>Date<input type="date" name="d" required></label><label>Time<select name="h"></select></label></div>
+    <label>Notes (optional)<textarea name="m" rows="2"></textarea></label>
+    <fieldset class="pay"><legend>How would you like to pay?</legend>
+      <label><input type="radio" name="pay" value="clinic" checked> Pay at the clinic</label>
+      <label><input type="radio" name="pay" value="Card"> Card</label>
+      <label><input type="radio" name="pay" value="GCash"> GCash</label>
+      <label><input type="radio" name="pay" value="PayPal"> PayPal</label>
+      <label><input type="radio" name="pay" value="Maya"> Maya</label>
+    </fieldset>
+    <p class="total" id="tot"></p>
+    <p class="err hide" id="be" role="alert"></p>
+    <div style="display:flex;gap:10px"><button class="btn" type="submit" id="bsub">Confirm booking</button><button class="btn alt" type="button" id="bcancel">Cancel</button></div>
+    <small style="color:var(--muted)">Demo payments: no card details are collected and no money is taken.</small>
+  </form>
+  <div id="bdone" class="hide"><p class="ok" role="status"></p><button class="btn" id="bclose" style="margin-top:14px">Close</button></div>
+</dialog>
+
+<dialog id="ad" aria-labelledby="adt">
+  <h2 id="adt">Admin</h2>
+  <div class="tabs"><button class="atab" data-t="ap" aria-pressed="true">Pets</button><button class="atab" data-t="as" aria-pressed="false">Schedule</button><button class="atab" data-t="ab" aria-pressed="false">Bookings</button></div>
+  <div id="ap">
+    <form id="pf">
+      <div class="row"><label>Name<input name="n" required></label><label>Type<select name="ty"><option value="dog">Dog</option><option value="cat">Cat</option></select></label></div>
+      <div class="row"><label>Breed<input name="b" required></label><label>Age (years)<input type="number" name="a" min="0" max="30" required></label></div>
+      <label>Gender<select name="g"><option>Male</option><option>Female</option></select></label>
+      <button class="btn" type="submit">Add pet</button>
+    </form>
+    <h3 style="margin:20px 0 10px;font-size:1.2rem">Listed pets</h3><ul id="pl" class="tips"></ul>
+  </div>
+  <div id="as" class="hide">
+    <h3 style="margin-bottom:10px;font-size:1.2rem">Opening hours</h3><div id="hf"></div>
+    <h3 style="margin:20px 0 10px;font-size:1.2rem">Booking time slots</h3>
+    <div id="sl" class="donate"></div>
+    <form id="sf2" style="grid-template-columns:1fr auto;align-items:end"><label>New slot<input type="time" name="t" required></label><button class="btn" type="submit">Add slot</button></form>
+  </div>
+  <div id="ab" class="hide"><ul id="al" class="tips"></ul></div>
+  <button class="btn alt" id="aclose" style="margin-top:18px">Close</button>
+</dialog>
+<script>
+var pets0=[
+["Hulfy",2,"Pug","Male","dog","#ffd9a8"],["Luna",4,"Golden Retriever","Female","dog","#ffe9a0"],["Max",1,"German Shepherd","Male","dog","#d8c4a8"],
+["Rocky",6,"Boxer","Male","dog","#f2c4b0"],["Sadie",2,"Australian Shepherd","Female","dog","#c9d9f5"],["Daisy",3,"Beagle","Female","dog","#e4d2f0"],
+["Loafy",3,"Siamese","Male","cat","#d7e6f5"],["Mittens",2,"Tabby","Female","cat","#f5dcc0"],["Simba",5,"Persian","Male","cat","#f7e7c4"],
+["Oliver",4,"British Shorthair","Male","cat","#cfd8e6"],["Milo",1,"Bengal","Female","cat","#f6d2a6"],["Gizmo",3,"Scottish Fold","Female","cat","#d9e8d6"]];
+var pets=(function(){try{var v=JSON.parse(localStorage.getItem("pp_pets"));if(Array.isArray(v))return v}catch(e){}return pets0})();
+var ADMIN={email:"admin@pawtrails.com",h:"4503074963af0aeaf3979a8512231db586fa380d6f2da114c531fc153f1ddc85"};
+var ico={dog:"🐶",cat:"🐱"},cur=null;
+function $(s){return document.querySelector(s)}
+function yrs(a){return a+(a==1?" year":" years")}
+function leash(){var ix=[0,6,1,8,4].filter(function(i){return pets[i]});if(ix.length<5)ix=pets.slice(0,5).map(function(_,i){return i});$("#leash").innerHTML=ix.map(function(i){var p=pets[i];return '<button class="tag" data-i="'+i+'"><i>'+ico[p[4]]+'</i><b>'+p[0]+'</b><span>'+p[2]+', '+yrs(p[1])+'</span></button>'}).join("");}leash();
+function render(f){
+  $("#grid").innerHTML=pets.map(function(p,i){return p;}).map(function(p,i){
+    if(f!="all"&&p[4]!=f)return"";
+    return '<article class="card"><div class="pic" style="background:'+p[5]+'" aria-hidden="true">'+ico[p[4]]+'</div><div class="body"><h3>'+p[0]+'</h3><dl><dt>Age</dt><dd>'+yrs(p[1])+'</dd><dt>Breed</dt><dd>'+p[2]+'</dd><dt>Gender</dt><dd>'+p[3]+'</dd></dl><button class="btn" data-i="'+i+'">Adopt '+p[0]+'</button></div></article>'}).join("");
+}
+render("all");
+document.querySelectorAll(".chip").forEach(function(c){c.onclick=function(){document.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed","false")});c.setAttribute("aria-pressed","true");render(c.dataset.f)}});
+function openAdopt(i){cur=pets[i];$("#dt").textContent="Adopt "+cur[0];$("#adopt").classList.remove("hide");$("#done").classList.add("hide");$("#adopt").reset();$("#dlg").showModal()}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-i]");if(b)openAdopt(+b.dataset.i)});
+$("#cancel").onclick=$("#close").onclick=function(){$("#dlg").close()};
+$("#adopt").onsubmit=function(e){e.preventDefault();var n=e.target.n.value.trim();this.classList.add("hide");$("#done").classList.remove("hide");$("#done .ok").textContent="Thanks, "+n+"! Your application for "+cur[0]+" is in. We’ll email you to arrange a meeting."};
+function wire(id,msg){$(id).onsubmit=function(e){e.preventDefault();var o=this.querySelector(".ok");o.textContent=msg(this);o.classList.remove("hide");this.reset()}}
+wire("#vet",function(f){return "Request received for "+f.pet.value+" on "+f.date.value+" at "+f.time.value+". We’ll confirm by email."});
+wire("#vol",function(f){return "Thanks, "+f.n.value+"! We’ll be in touch about "+f.a.value.toLowerCase()+"."});
+$("#amts").innerHTML=[100,250,500,1000].map(function(a){return '<button class="btn" data-d="'+a+'">'+php(a)+'</button>'}).join("")+'<button class="btn alt" data-d="0">Other amount</button>';
+$("#amts").onclick=function(e){var b=e.target.closest("[data-d]");if(!b)return;var m=$("#donmsg");m.textContent=b.dataset.d=="0"?"Online payments aren’t connected yet. Contact us to give any amount.":"Thank you! Online payments aren’t connected yet, so no money was taken.";m.classList.remove("hide")};
+/* ---- services, accounts, bookings ---- */
+var svcs=[
+["s1","🛁","Bath and brush","Gentle wash, blow-dry and brush-out.",350,"Grooming"],
+["s2","✂️","Full groom","Bath, haircut, nail trim and ear clean.",700,"Grooming"],
+["s3","💅","Nail trim","Quick, calm clip for dogs and cats.",150,"Grooming"],
+["s4","🩺","Health check-up","Nose-to-tail exam with a vet.",500,"Health"],
+["s5","💉","Vaccination","Core vaccines to keep your pet protected.",600,"Health"],
+["s6","🦷","Dental clean","Scale and polish for healthier teeth and gums.",2000,"Health"],
+["s7","🔖","Microchipping","Permanent ID so a lost pet can come home.",1200,"Health"],
+["s8","🐛","Flea and worm treatment","Treatment and advice for parasites.",400,"Health"],
+["s9","🎓","Training session","One hour of basic manners with a trainer.",800,"Everyday"],
+["s10","🏠","Day boarding","A safe, supervised day while you’re out.",500,"Everyday"]];
+var mem={};function php(n){return "₱"+Number(n).toLocaleString("en-PH")}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return mem[k]!==undefined?mem[k]:d}}
+function sv(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function rm(k){delete mem[k];try{localStorage.removeItem(k)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function renderSvc(g){$("#svc").innerHTML=svcs.map(function(s,i){if(g!="all"&&s[5]!=g)return"";return '<article class="card"><div class="pic s" aria-hidden="true">'+s[1]+'</div><div class="body"><h3>'+s[2]+'</h3><p style="margin:0;color:var(--muted);font-size:.92rem">'+s[3]+'</p><span class="price">'+php(s[4])+'</span><button class="btn" data-s="'+i+'">Book</button></div></article>'}).join("")}
+renderSvc("all");
+document.querySelectorAll(".sf").forEach(function(c){c.onclick=function(){document.querySelectorAll(".sf").forEach(function(x){x.setAttribute("aria-pressed","false")});c.setAttribute("aria-pressed","true");renderSvc(c.dataset.g)}});
+var user=null,mode="login",pending=null,curS=null;
+function hash(p,e){var b=new TextEncoder().encode("pp:"+e+":"+p);return crypto.subtle.digest("SHA-256",b).then(function(h){return Array.from(new Uint8Array(h)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")})}
+function setAuthUI(){var on=!!user;$("#who").classList.toggle("hide",!on);$("#mine").classList.toggle("hide",!on);$("#adm").classList.toggle("hide",!(on&&user.admin));$("#authbtn").textContent=on?"Log out":"Log in";if(on){$("#who").textContent="Hi, "+user.name;renderBk()}else{$("#blist").innerHTML='<li>Log in to see and manage your appointments. <button class="btn sm" id="lgi">Log in</button></li>'}}
+function setMode(m){mode=m;var s=m=="signup";$("#at").textContent=s?"Create account":"Log in";$("#asub").textContent=s?"Create account":"Log in";$("#nl").classList.toggle("hide",!s);$("#af").n.required=s;$("#tl").setAttribute("aria-pressed",!s);$("#ts").setAttribute("aria-pressed",s);$("#af").p.autocomplete=s?"new-password":"current-password";$("#ae").classList.add("hide")}
+function openAuth(m){$("#af").reset();setMode(m||"login");$("#auth").showModal()}
+$("#tl").onclick=function(){setMode("login")};$("#ts").onclick=function(){setMode("signup")};
+$("#acancel").onclick=function(){pending=null;$("#auth").close()};
+$("#authbtn").onclick=function(){if(user){user=null;rm("pp_session");setAuthUI()}else openAuth("login")};
+$("#af").onsubmit=function(e){e.preventDefault();var f=e.target,em=f.e.value.trim().toLowerCase(),er=$("#ae");
+  function fail(t){er.textContent=t;er.classList.remove("hide")}
+  if(!window.crypto||!crypto.subtle)return fail("Your browser can’t create accounts here. Try a current browser over https.");
+  hash(f.p.value,em).then(function(h){var us=ld("pp_users",{});
+    if(em==ADMIN.email){if(mode=="signup"||h!==ADMIN.h)return fail(mode=="signup"?"That email already has an account. Log in instead.":"Email or password is incorrect. Check them or create an account.");user={email:em,name:"Admin",admin:true};sv("pp_session",em);$("#auth").close();setAuthUI();return}
+    if(mode=="signup"){if(us[em])return fail("That email already has an account. Log in instead.");us[em]={name:f.n.value.trim()||"friend",h:h};sv("pp_users",us)}
+    else{if(!us[em]||us[em].h!==h)return fail("Email or password is incorrect. Check them or create an account.")}
+    user={email:em,name:us[em].name};sv("pp_session",em);$("#auth").close();setAuthUI();
+    if(pending!==null){var p=pending;pending=null;openBook(p)}})};
+function bkKey(){return "pp_bk_"+user.email}
+function openBook(i){if(!user){pending=i;openAuth("login");return}curS=svcs[i];$("#bt").textContent="Book: "+curS[2];var f=$("#bf");f.reset();f.classList.remove("hide");$("#bdone").classList.add("hide");$("#be").classList.add("hide");
+  var t=new Date(),d=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");f.d.min=d;
+  f.h.innerHTML=slots.slice().sort().map(function(x){return "<option>"+x+"</option>"}).join("");
+  $("#tot").textContent="Total: "+php(curS[4]);$("#bd").showModal()}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-s]");if(b)openBook(+b.dataset.s)});
+$("#bcancel").onclick=$("#bclose").onclick=function(){$("#bd").close()};
+$("#bf").onsubmit=function(e){e.preventDefault();var f=e.target,list=ld(bkKey(),[]),er=$("#be");
+  var dd=new Date(f.d.value+"T00:00");if(!hours[dd.getDay()]){er.textContent="We’re closed on "+days[dd.getDay()]+"s. Pick another day.";er.classList.remove("hide");return}
+  if(list.some(function(b){return b.d==f.d.value&&b.h==f.h.value&&b.st!="Cancelled"})){er.textContent="You already have a booking at that date and time. Pick another slot.";er.classList.remove("hide");return}
+  if(!f.h.value){er.textContent="No time slots are open right now. Please try again later.";er.classList.remove("hide");return}
+  var pay=f.pay.value,paid=pay!="clinic";
+  list.push({id:Date.now(),s:curS[2],price:curS[4],pet:f.pet.value.trim(),t:f.t.value,d:f.d.value,h:f.h.value,pay:paid?pay:"Pay at clinic",st:paid?"Paid":"Unpaid"});sv(bkKey(),list);renderBk();
+  f.classList.add("hide");$("#bdone").classList.remove("hide");
+  $("#bdone .ok").textContent=curS[2]+" for "+f.pet.value.trim()+" is booked for "+f.d.value+" at "+f.h.value+". "+(paid?"Demo payment of "+php(curS[4])+" via "+pay+" recorded.":"Pay "+php(curS[4])+" at the clinic.")};
+function renderBk(){var l=ld(bkKey(),[]);$("#blist").innerHTML=l.length?l.slice().reverse().map(function(b){var c=b.st=="Cancelled";return '<li class="bk"><div><b>'+esc(b.s)+'</b> for '+esc(b.pet)+'<br><small>'+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><div class="acts"><span class="badge'+(b.st=="Paid"?" p":"")+'">'+b.st+'</span>'+(b.st=="Unpaid"?'<button class="btn sm" data-pay="'+b.id+'">Pay now</button>':"")+(c?"":'<button class="btn alt sm" data-x="'+b.id+'">Cancel</button>')+'</div></li>'}).join(""):'<li>No bookings yet. Choose a service above to make your first one.</li>'}
+$("#blist").onclick=function(e){if(e.target.id=="lgi"){openAuth("login");return}var p=e.target.closest("[data-pay]"),x=e.target.closest("[data-x]");if(!p&&!x)return;var l=ld(bkKey(),[]);l.forEach(function(b){if(p&&b.id==p.dataset.pay){b.st="Paid";b.pay="Demo online payment"}if(x&&b.id==x.dataset.x)b.st="Cancelled"});sv(bkKey(),l);renderBk()};
+(function(){var em=ld("pp_session",null),us=ld("pp_users",{});if(em===ADMIN.email){user={email:em,name:"Admin",admin:true}}else if(em&&us[em]){user={email:em,name:us[em].name}}setAuthUI()})();
+/* ---- opening hours and bottom tabs ---- */
+var hours=ld("pp_hours",[null,[9,18],[9,18],[9,18],[9,18],[9,18],[9,17]]),days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+function fh(h){return (h%12||12)+(h<12?" am":" pm")}
+function status(){var n=new Date(),h=n.getHours()+n.getMinutes()/60,t=hours[n.getDay()],txt="",open=false;
+  if(t&&h>=t[0]&&h<t[1]){open=true;txt="Open now, closes "+fh(t[1])}
+  else{for(var d=0;d<8;d++){var k=(n.getDay()+d)%7,o=hours[k];if(o&&(d>0||h<o[0])){txt="Closed, opens "+(d==0?"today":d==1?"tomorrow":days[k])+" at "+fh(o[0]);break}}}
+  document.querySelectorAll(".ostat").forEach(function(el){el.textContent=txt;el.className="ostat pill "+(open?"open":"closed")});
+  $("#hrt").innerHTML=[1,2,3,4,5,6,0].map(function(k){return '<tr'+(k==n.getDay()?' class="now"':'')+'><td>'+days[k]+'</td><td>'+(hours[k]?fh(hours[k][0])+" to "+fh(hours[k][1]):"Closed")+'</td></tr>'}).join("")}
+status();setInterval(status,60000);
+function setTab(){var line=innerHeight*.4;function cov(s){var r=document.querySelector(s).getBoundingClientRect();return r.top<=line&&r.bottom>line}
+  var act=null;document.querySelectorAll(".tabbar a").forEach(function(a){var h=a.getAttribute("href"),m=h=="#top"?scrollY<400:h=="#services"?cov("#services")&&!cov("#bookings"):cov(h);if(m&&!act)act=a});
+  document.querySelectorAll(".tabbar a").forEach(function(a){a.classList.toggle("on",a===act);if(a===act)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current")})}
+addEventListener("scroll",setTab,{passive:true});setTab();
+</script>
+<script>
+/* ---- admin, login-first ---- */
+(function(){
+var PAL={dog:["#ffd9a8","#ffe9a0","#d8c4a8","#f2c4b0","#c9d9f5","#e4d2f0"],cat:["#d7e6f5","#f5dcc0","#f7e7c4","#cfd8e6","#f6d2a6","#d9e8d6"]};
+window.slots=ld("pp_slots",["09:00","10:00","11:00","12:00","14:00","15:00","16:00"]);
+function rr(){var c=document.querySelector('[data-f][aria-pressed="true"]');render(c?c.dataset.f:"all");if(!$("#grid").children.length)$("#grid").innerHTML='<p class="lede">No pets listed right now.</p>'}
+function opts(sel){var s="";for(var h=5;h<=22;h++)s+='<option value="'+h+'"'+(h==sel?" selected":"")+'>'+fh(h)+'</option>';return s}
+function rAd(){
+  $("#pl").innerHTML=pets.length?pets.map(function(p,i){return '<li class="bk"><span>'+ico[p[4]]+' <b>'+esc(p[0])+'</b> · '+esc(p[2])+', '+yrs(p[1])+'</span><button class="btn alt sm" data-rp="'+i+'">Remove</button></li>'}).join(""):'<li>No pets listed.</li>';
+  $("#hf").innerHTML=[1,2,3,4,5,6,0].map(function(k){var h=hours[k],d=h?"":" disabled";return '<div class="hrow"><b>'+days[k].slice(0,3)+'</b><label><input type="checkbox" data-hk="'+k+'"'+(h?"":" checked")+'> Closed</label><select data-ho="'+k+'" aria-label="'+days[k]+' opens"'+d+'>'+opts(h?h[0]:9)+'</select><select data-hc="'+k+'" aria-label="'+days[k]+' closes"'+d+'>'+opts(h?h[1]:18)+'</select></div>'}).join("");
+  $("#sl").innerHTML=slots.slice().sort().map(function(t){return '<button class="btn alt sm" data-rs="'+t+'" aria-label="Remove '+t+'">'+t+' ✕</button>'}).join("")||'<p>No slots. Add one below.</p>';
+  var all=[];try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf("pp_bk_")==0)ld(k,[]).forEach(function(b){all.push([k.slice(6),b])})}}catch(e){}
+  all.sort(function(a,b){return (b[1].d+b[1].h).localeCompare(a[1].d+a[1].h)});
+  $("#al").innerHTML=all.length?all.map(function(x){var b=x[1];return '<li class="bk"><div><b>'+esc(b.s)+'</b> for '+esc(b.pet)+'<br><small>'+esc(x[0])+' · '+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><span class="badge'+(b.st=="Paid"?" p":"")+'">'+esc(b.st)+'</span></li>'}).join(""):'<li>No bookings yet.</li>';
+}
+$("#adm").onclick=function(){rAd();$("#ad").showModal()};
+$("#aclose").onclick=function(){$("#ad").close()};
+document.querySelectorAll(".atab").forEach(function(b){b.onclick=function(){document.querySelectorAll(".atab").forEach(function(x){x.setAttribute("aria-pressed",x===b)});["ap","as","ab"].forEach(function(id){$("#"+id).classList.toggle("hide",id!=b.dataset.t)})}});
+$("#pf").onsubmit=function(e){e.preventDefault();var f=e.target,ty=f.ty.value,pl=PAL[ty];
+  pets.unshift([f.n.value.trim(),Math.max(0,parseInt(f.a.value,10)||0),f.b.value.trim(),f.g.value,ty,pl[Math.floor(Math.random()*pl.length)]]);
+  sv("pp_pets",pets);f.reset();leash();rr();rAd()};
+$("#sf2").onsubmit=function(e){e.preventDefault();var t=e.target.t.value;if(slots.indexOf(t)<0)slots.push(t);sv("pp_slots",slots);e.target.reset();rAd()};
+$("#hf").onchange=function(e){var t=e.target,d=t.dataset,k=d.hk!==undefined?d.hk:d.ho!==undefined?d.ho:d.hc;if(k===undefined)return;
+  if(d.hk!==undefined)hours[k]=t.checked?null:[9,18];
+  else{var h=hours[k];h[d.ho!==undefined?0:1]=+t.value;if(h[1]<=h[0]){if(d.ho!==undefined)h[1]=Math.min(h[0]+1,22);else h[0]=Math.max(h[1]-1,5)}}
+  sv("pp_hours",hours);status();rAd()};
+$("#ad").addEventListener("click",function(e){var p=e.target.closest("[data-rp]"),s=e.target.closest("[data-rs]");
+  if(p){pets.splice(+p.dataset.rp,1);sv("pp_pets",pets);leash();rr();rAd()}
+  if(s){slots=slots.filter(function(t){return t!=s.dataset.rs});sv("pp_slots",slots);rAd()}});
+var oa=openAuth;openAuth=function(m){document.body.classList.add("blur");oa(m)};
+$("#auth").addEventListener("close",function(){document.body.classList.remove("blur")});
+if(!user)openAuth("login");
+})();
+</script>
+</body>
+</html>
