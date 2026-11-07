@@ -450,12 +450,15 @@ var oa=openAuth;openAuth=function(m){document.body.classList.add("blur");oa(m)};
 $("#auth").addEventListener("close",function(){document.body.classList.remove("blur")});
 if(!user)openAuth("login");
 })();
-</script>
-<style>
-  #netlify-badge {
-    display: none !important;
-  }
-</style>
-
+  <script>
+  const hideBadge = setInterval(() => {
+    const badge = document.getElementById('netlify-badge');
+    if (badge) {
+      badge.remove();
+      clearInterval(hideBadge);
+    }
+  }, 100);
+  </script>
+  
 </body>
 </html>
