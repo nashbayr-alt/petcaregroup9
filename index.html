@@ -94,7 +94,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 @media(prefers-color-scheme:dark){.err{color:#ff8a7a}}
 .bk{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
 .bk .acts{display:flex;gap:8px}
-.badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--sky)}.badge.p{background:var(--leaf);color:#fff}
+.badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--sky)}
+.badge.p{background:var(--leaf);color:#fff}
+.badge.acc{background:#1f8a5f;color:#fff}
+.badge.dec{background:#c0392b;color:#fff}
 body{padding-bottom:76px}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));gap:4px;align-items:center}
 .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:12px;text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:600}
@@ -184,7 +187,7 @@ iframe#netlify-badge, a[href*="netlify.com/why-netlify"] {
     <li><h3>Pick how to pay</h3><p>Pay at the clinic, or choose card, GCash, Maya or PayPal.</p></li>
     <li><h3>Manage it</h3><p>See, pay for or cancel bookings under My bookings.</p></li>
   </ol>
-  <div id="bookings" style="margin-top:40px"><h3 style="font-size:1.5rem;margin-bottom:12px">My bookings & Messages</h3><div id="blist" class="tips"></div></div>
+  <div id="bookings" style="margin-top:40px"><h3 style="font-size:1.5rem;margin-bottom:12px">My bookings & Appointments</h3><div id="blist" class="tips"></div></div>
 </div></section>
 
 <section id="care"><div class="wrap two">
@@ -493,20 +496,40 @@ $("#bf").onsubmit=function(e){e.preventDefault();var f=e.target,list=ld(bkKey(),
 
 function renderBk(){
   var l=ld(bkKey(),[]);
+  try {
+    var allBks = JSON.parse(localStorage.getItem("pp_all_bookings") || "[]");
+    var updated = false;
+    l.forEach(function(b){
+      var match = allBks.find(function(x){return x.id == b.id});
+      if(match && match.st !== b.st){
+        b.st = match.st;
+        updated = true;
+      }
+    });
+    if(updated){ sv(bkKey(), l); }
+  } catch(e){}
+
   var msgs = [];
   try { msgs = JSON.parse(localStorage.getItem(getMessagesKey()) || "[]"); } catch(e){}
   
   var html = "";
   if(l.length){
-    html += '<h4 style="margin:0 0 8px 0;font-size:1.1rem">Service Bookings</h4>';
-    html += l.slice().reverse().map(function(b){var c=b.st=="Cancelled";return '<li class="bk"><div><b>'+esc(b.s)+'</b> for '+esc(b.pet)+'<br><small>'+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><div class="acts"><span class="badge'+(b.st=="Paid"?" p":"")+'">'+b.st+'</span>'+(b.st=="Unpaid"?'<button class="btn sm" data-pay="'+b.id+'">Pay now</button>':"")+(c?"":'<button class="btn alt sm" data-x="'+b.id+'">Cancel</button>')+'</div></li>'}).join("");
+    html += '<h4 style="margin:0 0 8px 0;font-size:1.1rem">Service Bookings & Appointments</h4>';
+    html += l.slice().reverse().map(function(b){
+      var c=b.st=="Cancelled";
+      var badgeClass = b.st=="Accepted"||b.st=="Paid" ? "badge acc" : b.st=="Declined" ? "badge dec" : "badge";
+      return '<li class="bk"><div><b>'+esc(b.s)+'</b> for '+esc(b.pet)+'<br><small>'+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><div class="acts"><span class="'+badgeClass+'">'+esc(b.st)+'</span>'+(b.st=="Unpaid"?'<button class="btn sm" data-pay="'+b.id+'">Pay now</button>':"")+(c?"":'<button class="btn alt sm" data-x="'+b.id+'">Cancel</button>')+'</div></li>';
+    }).join("");
   }
   if(msgs.length){
     html += '<h4 style="margin:16px 0 8px 0;font-size:1.1rem">Sent Messages & Vet Inquiries</h4>';
-    html += msgs.slice().reverse().map(function(m){return '<li class="bk"><div><b>'+esc(m.pet)+'</b> ('+esc(m.type)+')<br><small>Date: '+esc(m.date)+' at '+esc(m.time)+' · Loc: '+esc(m.loc)+'<br>Notes: '+esc(m.why)+'</small></div><span class="badge p">'+m.st+'</span></li>'}).join("");
+    html += msgs.slice().reverse().map(function(m){
+      var badgeClass = m.st=="Accepted" ? "badge acc" : m.st=="Declined" ? "badge dec" : "badge p";
+      return '<li class="bk"><div><b>'+esc(m.pet)+'</b> ('+esc(m.type)+')<br><small>Date: '+esc(m.date)+' at '+esc(m.time)+' · Loc: '+esc(m.loc)+'<br>Notes: '+esc(m.why)+'</small></div><span class="'+badgeClass+'">'+esc(m.st)+'</span></li>';
+    }).join("");
   }
   if(!l.length && !msgs.length){
-    html = '<li>No bookings or messages yet. Choose a service above or send a vet callback request!</li>';
+    html = '<li>No bookings or appointments yet. Choose a service above to make your first one!</li>';
   }
   $("#blist").innerHTML = html;
 }
@@ -557,11 +580,19 @@ function rAd(){
   var adminHtml = "";
   if(allBks.length){
     adminHtml += '<h4 style="margin:0 0 6px 0;font-size:1rem;color:var(--ink)">Service Bookings</h4>';
-    adminHtml += allBks.map(function(b){return '<li class="bk"><div><b>'+esc(b.s)+'</b> for <b>'+esc(b.pet)+'</b><br><small>User: '+esc(b.email)+' · '+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><span class="badge'+(b.st=="Paid"?" p":"")+'">'+esc(b.st)+'</span></li>'}).join("");
+    adminHtml += allBks.map(function(b){
+      var isProcessed = b.st === "Accepted" || b.st === "Declined" || b.st === "Paid";
+      var badgeClass = b.st=="Accepted"||b.st=="Paid" ? "badge acc" : b.st=="Declined" ? "badge dec" : "badge";
+      return '<li class="bk"><div><b>'+esc(b.s)+'</b> for <b>'+esc(b.pet)+'</b><br><small>User: '+esc(b.email)+' · '+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><div class="acts"><span class="'+badgeClass+'">'+esc(b.st)+'</span>'+(!isProcessed?'<button class="btn sm" data-accept-bk="'+b.id+'">Accept</button><button class="btn alt sm" data-decline-bk="'+b.id+'">Decline</button>':"")+'</div></li>';
+    }).join("");
   }
   if(allMsgs.length){
     adminHtml += '<h4 style="margin:16px 0 6px 0;font-size:1rem;color:var(--ink)">Client Messages & Vet Inquiries</h4>';
-    adminHtml += allMsgs.map(function(m){return '<li class="bk"><div><b>'+esc(m.pet||m.name)+'</b> ('+esc(m.type)+')<br><small>Email: '+esc(m.email||m.e)+' | Phone: '+esc(m.phone||m.p)+'<br>Date: '+esc(m.date||'N/A')+' at '+esc(m.time||'')+' | Loc: '+esc(m.loc||m.area||'')+'<br><b>Message:</b> '+esc(m.why||m.message||'N/A')+'</small></div><span class="badge p">Received</span></li>'}).join("");
+    adminHtml += allMsgs.map(function(m){
+      var isProcessed = m.st === "Accepted" || m.st === "Declined";
+      var badgeClass = m.st=="Accepted" ? "badge acc" : m.st=="Declined" ? "badge dec" : "badge p";
+      return '<li class="bk"><div><b>'+esc(m.pet||m.name)+'</b> ('+esc(m.type)+')<br><small>Email: '+esc(m.email||m.e)+' | Phone: '+esc(m.phone||m.p)+'</small><br><small>Date: '+esc(m.date||'N/A')+' at '+esc(m.time||'')+' | Loc: '+esc(m.loc||m.area||'')+'</small><br><small><b>Message:</b> '+esc(m.why||m.message||'N/A')+'</small></div><div class="acts"><span class="'+badgeClass+'">'+esc(m.st)+'</span>'+(!isProcessed?'<button class="btn sm" data-accept-msg="'+m.id+'">Accept</button><button class="btn alt sm" data-decline-msg="'+m.id+'">Decline</button>':"")+'</div></li>';
+    }).join("");
   }
   if(!allBks.length && !allMsgs.length){
     adminHtml = '<li>No bookings or messages received yet.</li>';
@@ -585,15 +616,64 @@ $("#hf").onchange=function(e){var t=e.target,d=t.dataset,k=d.hk!==undefined?d.hk
   else{var h=hours[k];h[d.ho!==undefined?0:1]=+t.value;if(h[1]<=h[0]){if(d.ho!==undefined)h[1]=Math.min(h[0]+1,22);else h[0]=Math.max(h[1]-1,5)}}
   sv("pp_hours",hours);status();rAd()};
 
-$("#ad").addEventListener("click",function(e){var p=e.target.closest("[data-rp]"),s=e.target.closest("[data-rs]");
+$("#ad").addEventListener("click",function(e){
+  var p=e.target.closest("[data-rp]"),s=e.target.closest("[data-rs]");
+  var acceptBk=e.target.closest("[data-accept-bk]"), declineBk=e.target.closest("[data-decline-bk]");
+  var acceptMsg=e.target.closest("[data-accept-msg]"), declineMsg=e.target.closest("[data-decline-msg]");
+  
   if(p){pets.splice(+p.dataset.rp,1);sv("pp_pets",pets);leash();rr();rAd()}
-  if(s){slots=slots.filter(function(t){return t!=s.dataset.rs});sv("pp_slots",slots);rAd()}});
+  if(s){slots=slots.filter(function(t){return t!=s.dataset.rs});sv("pp_slots",slots);rAd()}
+  
+  if(acceptBk || declineBk){
+    var targetId = (acceptBk || declineBk).dataset.acceptBk || (acceptBk || declineBk).dataset.declineBk;
+    var newStatus = acceptBk ? "Accepted" : "Declined";
+    try {
+      var allBks = JSON.parse(localStorage.getItem("pp_all_bookings") || "[]");
+      allBks.forEach(function(b){ if(b.id == targetId) b.st = newStatus; });
+      localStorage.setItem("pp_all_bookings", JSON.stringify(allBks));
+    } catch(e){}
+    try {
+      for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i);
+        if(k.indexOf("pp_bk_")==0){
+          var list = ld(k,[]);
+          var changed = false;
+          list.forEach(function(b){ if(b.id == targetId){ b.st = newStatus; changed = true; } });
+          if(changed) sv(k, list);
+        }
+      }
+    } catch(e){}
+    rAd();
+    if(user) renderBk();
+  }
+
+  if(acceptMsg || declineMsg){
+    var msgId = (acceptMsg || declineMsg).dataset.acceptMsg || (acceptMsg || declineMsg).dataset.declineMsg;
+    var msgStatus = acceptMsg ? "Accepted" : "Declined";
+    try {
+      var allMsgs = JSON.parse(localStorage.getItem("pp_all_messages") || "[]");
+      allMsgs.forEach(function(m){ if(m.id == msgId) m.st = msgStatus; });
+      localStorage.setItem("pp_all_messages", JSON.stringify(allMsgs));
+    } catch(e){}
+    try {
+      for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i);
+        if(k.indexOf("pp_msgs_")==0){
+          var list = ld(k,[]);
+          var changed = false;
+          list.forEach(function(m){ if(m.id == msgId){ m.st = msgStatus; changed = true; } });
+          if(changed) sv(k, list);
+        }
+      }
+    } catch(e){}
+    rAd();
+    if(user) renderBk();
+  }
+});
 
 var oa=openAuth;openAuth=function(m){document.body.classList.add("blur");oa(m)};
 $("#auth").addEventListener("close",function(){document.body.classList.remove("blur")});
 if(!user)openAuth("login");
 </script>
 </body>
-</html>
-
-      
+</html> 
