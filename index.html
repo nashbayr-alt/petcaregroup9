@@ -450,11 +450,35 @@ var oa=openAuth;openAuth=function(m){document.body.classList.add("blur");oa(m)};
 $("#auth").addEventListener("close",function(){document.body.classList.remove("blur")});
 if(!user)openAuth("login");
 })();
-  <style>
+ <style>
   iframe#netlify-badge, a[href*="netlify.com/why-netlify"] {
     display: none !important;
   }
 </style>
-  
+
+<script>
+  document.addEventListener('click', function(e) {
+    // 1. Handle Admin button click
+    const adminBtn = e.target.closest('#adm');
+    if (adminBtn) {
+      if (typeof rAd === 'function') rAd();
+      const adminModal = document.querySelector('#ad');
+      if (adminModal) {
+        if (typeof adminModal.showModal === 'function') {
+          adminModal.showModal();
+        } else {
+          adminModal.style.display = 'block';
+        }
+      }
+    }
+
+    // 2. Handle Book buttons click
+    const bookBtn = e.target.closest('button');
+    if (bookBtn && bookBtn.textContent.trim().startsWith('Book')) {
+      const appointmentsTab = document.querySelector('[href*="appointments"]') || document.querySelector('.tabbar a:nth-child(2)');
+      if (appointmentsTab) appointmentsTab.click();
+    }
+  });
+</script>
 </body>
 </html>
