@@ -34,10 +34,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
 .leash{position:relative;margin-top:44px;padding-top:34px;display:flex;gap:18px;overflow-x:auto;padding-bottom:14px}
 .leash::before{content:"";position:absolute;left:0;right:0;top:14px;height:4px;background:var(--ink);border-radius:2px}
-.tag{flex:0 0 150px;position:relative;background:var(--gold);color:var(--on-gold);border:0;border-radius:18px 18px 28px 28px;padding:26px 14px 16px;text-align:center;cursor:pointer;font:inherit;transform-origin:top center}
+.tag{flex:0 0 160px;position:relative;background:var(--gold);color:var(--on-gold);border:0;border-radius:18px 18px 28px 28px;padding:26px 14px 16px;text-align:center;cursor:pointer;font:inherit;transform-origin:top center}
 .tag::before{content:"";position:absolute;top:9px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
-.tag b{display:block;font:800 1.4rem 'Bricolage Grotesque',sans-serif}
-.tag span{font-size:.85rem}.tag i{font-style:normal;font-size:2rem;display:block}
+.tag b{display:block;font:800 1.2rem 'Bricolage Grotesque',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag span{font-size:.82rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tag i{font-style:normal;font-size:2rem;display:block}
 .tag:nth-child(even){background:var(--sky);color:var(--ink)}
 @media(prefers-reduced-motion:no-preference){.tag{animation:sway 1.4s ease-out both}.tag:nth-child(2){animation-delay:.12s}.tag:nth-child(3){animation-delay:.24s}.tag:nth-child(4){animation-delay:.36s}.tag:nth-child(5){animation-delay:.48s}
 @keyframes sway{0%{transform:rotate(-14deg)}35%{transform:rotate(9deg)}65%{transform:rotate(-4deg)}100%{transform:rotate(0)}}}
@@ -48,13 +48,13 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:10px;letter-spacing:-.01em}
 .filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
 .chip{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 18px;font:600 .95rem Figtree,sans-serif;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
 .card .pic{height:130px;display:grid;place-items:center;font-size:3.4rem}
 .card .body{padding:16px;display:flex;flex-direction:column;gap:4px;flex:1}
 .card h3{font-size:1.3rem}
 .card dl{margin:4px 0 12px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:.92rem;color:var(--muted)}
-.card dt{font-weight:600;color:var(--ink)}.card dd{margin:0}
+.card dt{font-weight:600;color:var(--ink)}.card dd{margin:0;word-break:break-word}
 .card .btn{margin-top:auto;text-align:center}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;counter-reset:s;padding:0;list-style:none;margin:0}
 .steps li{counter-increment:s;background:var(--surface);border-radius:18px;padding:22px;border:1px solid var(--line)}
@@ -111,18 +111,23 @@ html{-webkit-text-size-adjust:100%}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px}.btn.sm{min-height:40px}
 .chip{min-height:44px}
 input,select,textarea{min-height:44px}textarea{min-height:0}
-.grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr))}
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))}
 dialog{width:min(480px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto}
 @media(max-width:900px){.nav ul{display:none}}
 @media(min-width:1200px){.wrap{max-width:1240px}html{font-size:17px}}
 @media(min-width:900px){.tabbar{left:50%;right:auto;width:min(520px,90vw);transform:translateX(-50%);bottom:14px;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(0,0,0,.18)}body{padding-bottom:104px}}
 @media(max-width:700px){.hero{padding:36px 0 24px}.leash{margin-top:32px}section{padding:40px 0}}
-@media(max-width:560px){.wrap{padding:0 16px}.logo{font-size:1.05rem}#mine{display:none}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.card .pic{height:100px;font-size:2.6rem}.card .pic.s{height:72px;font-size:2rem}.card .body{padding:12px}.card h3{font-size:1.1rem}.card .btn{padding:10px 12px;font-size:.92rem}.hero .cta .btn{flex:1}.tag{flex-basis:130px}.steps{grid-template-columns:1fr}.bk .acts{width:100%}.tabbar a{font-size:.7rem}}
+@media(max-width:560px){.wrap{padding:0 16px}.logo{font-size:1.05rem}#mine{display:none}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.card .pic{height:100px;font-size:2.6rem}.card .pic.s{height:72px;font-size:2rem}.card .body{padding:12px}.card h3{font-size:1.1rem}.card .btn{padding:10px 12px;font-size:.92rem}.hero .cta .btn{flex:1}.tag{flex-basis:140px}.steps{grid-template-columns:1fr}.bk .acts{width:100%}.tabbar a{font-size:.7rem}}
 @media(max-width:360px){.grid{grid-template-columns:1fr}}
 @media(max-height:500px) and (orientation:landscape){.tabbar a{flex-direction:row;justify-content:center;gap:6px}.tabbar a i{font-size:1.1rem}}
 .atab{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 18px;font:600 .95rem Figtree,sans-serif;cursor:pointer;min-height:44px}.atab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .hrow{display:grid;grid-template-columns:44px auto 1fr 1fr;gap:8px;align-items:center;margin-bottom:6px}.hrow label{display:flex;gap:6px;align-items:center;font-weight:500}.hrow input[type=checkbox]{width:auto;min-height:0}
 #pf,#sf2{display:grid;gap:12px}@media(max-width:560px){#adm{padding:8px 12px}}
+
+/* ---- Permanent Netlify Badge Override ---- */
+iframe#netlify-badge, a[href*="netlify.com/why-netlify"] {
+  display: none !important;
+}
 </style>
 </head>
 <body>
@@ -320,6 +325,7 @@ dialog{width:min(480px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overfl
   <div id="ab" class="hide"><ul id="al" class="tips"></ul></div>
   <button class="btn alt" id="aclose" style="margin-top:18px">Close</button>
 </dialog>
+
 <script>
 var pets0=[
 ["Hulfy",2,"Pug","Male","dog","#ffd9a8"],["Luna",4,"Golden Retriever","Female","dog","#ffe9a0"],["Max",1,"German Shepherd","Male","dog","#d8c4a8"],
@@ -331,24 +337,30 @@ var ADMIN={email:"admin@pawtrails.com",h:"4503074963af0aeaf3979a8512231db586fa38
 var ico={dog:"🐶",cat:"🐱"},cur=null;
 function $(s){return document.querySelector(s)}
 function yrs(a){return a+(a==1?" year":" years")}
-function leash(){var ix=[0,6,1,8,4].filter(function(i){return pets[i]});if(ix.length<5)ix=pets.slice(0,5).map(function(_,i){return i});$("#leash").innerHTML=ix.map(function(i){var p=pets[i];return '<button class="tag" data-i="'+i+'"><i>'+ico[p[4]]+'</i><b>'+p[0]+'</b><span>'+p[2]+', '+yrs(p[1])+'</span></button>'}).join("");}leash();
+function leash(){var ix=[0,6,1,8,4].filter(function(i){return pets[i]});if(ix.length<5)ix=pets.slice(0,5).map(function(_,i){return i});$("#leash").innerHTML=ix.map(function(i){var p=pets[i];return '<button class="tag" data-i="'+i+'"><i>'+ico[p[4]]+'</i><b>'+p[0]+'</b><span>'+p[2]+'</span></button>'}).join("");}leash();
+
 function render(f){
-  $("#grid").innerHTML=pets.map(function(p,i){return p;}).map(function(p,i){
+  $("#grid").innerHTML=pets.map(function(p,i){
     if(f!="all"&&p[4]!=f)return"";
-    return '<article class="card"><div class="pic" style="background:'+p[5]+'" aria-hidden="true">'+ico[p[4]]+'</div><div class="body"><h3>'+p[0]+'</h3><dl><dt>Age</dt><dd>'+yrs(p[1])+'</dd><dt>Breed</dt><dd>'+p[2]+'</dd><dt>Gender</dt><dd>'+p[3]+'</dd></dl><button class="btn" data-i="'+i+'">Adopt '+p[0]+'</button></div></article>'}).join("");
+    return '<article class="card"><div class="pic" style="background:'+p[5]+'" aria-hidden="true">'+ico[p[4]]+'</div><div class="body"><h3>'+p[0]+'</h3><dl><dt>Breed</dt><dd><b>'+esc(p[2])+'</b></dd><dt>Age</dt><dd>'+yrs(p[1])+'</dd><dt>Gender</dt><dd>'+p[3]+'</dd></dl><button class="btn" data-i="'+i+'">Adopt '+p[0]+'</button></div></article>'
+  }).join("");
 }
 render("all");
+
 document.querySelectorAll(".chip").forEach(function(c){c.onclick=function(){document.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed","false")});c.setAttribute("aria-pressed","true");render(c.dataset.f)}});
+
 function openAdopt(i){cur=pets[i];$("#dt").textContent="Adopt "+cur[0];$("#adopt").classList.remove("hide");$("#done").classList.add("hide");$("#adopt").reset();$("#dlg").showModal()}
 document.addEventListener("click",function(e){var b=e.target.closest("[data-i]");if(b)openAdopt(+b.dataset.i)});
 $("#cancel").onclick=$("#close").onclick=function(){$("#dlg").close()};
 $("#adopt").onsubmit=function(e){e.preventDefault();var n=e.target.n.value.trim();this.classList.add("hide");$("#done").classList.remove("hide");$("#done .ok").textContent="Thanks, "+n+"! Your application for "+cur[0]+" is in. We’ll email you to arrange a meeting."};
+
 function wire(id,msg){$(id).onsubmit=function(e){e.preventDefault();var o=this.querySelector(".ok");o.textContent=msg(this);o.classList.remove("hide");this.reset()}}
 wire("#vet",function(f){return "Request received for "+f.pet.value+" on "+f.date.value+" at "+f.time.value+". We’ll confirm by email."});
 wire("#vol",function(f){return "Thanks, "+f.n.value+"! We’ll be in touch about "+f.a.value.toLowerCase()+"."});
+
 $("#amts").innerHTML=[100,250,500,1000].map(function(a){return '<button class="btn" data-d="'+a+'">'+php(a)+'</button>'}).join("")+'<button class="btn alt" data-d="0">Other amount</button>';
 $("#amts").onclick=function(e){var b=e.target.closest("[data-d]");if(!b)return;var m=$("#donmsg");m.textContent=b.dataset.d=="0"?"Online payments aren’t connected yet. Contact us to give any amount.":"Thank you! Online payments aren’t connected yet, so no money was taken.";m.classList.remove("hide")};
-/* ---- services, accounts, bookings ---- */
+
 var svcs=[
 ["s1","🛁","Bath and brush","Gentle wash, blow-dry and brush-out.",350,"Grooming"],
 ["s2","✂️","Full groom","Bath, haircut, nail trim and ear clean.",700,"Grooming"],
@@ -357,25 +369,32 @@ var svcs=[
 ["s5","💉","Vaccination","Core vaccines to keep your pet protected.",600,"Health"],
 ["s6","🦷","Dental clean","Scale and polish for healthier teeth and gums.",2000,"Health"],
 ["s7","🔖","Microchipping","Permanent ID so a lost pet can come home.",1200,"Health"],
-["s8","🐛","Flea and worm treatment","Treatment and advice for parasites.",400,"Health"],
+["s8","🐛","Flea and worm treatment","Treatment and advice for parasites.",500,"Health"],
 ["s9","🎓","Training session","One hour of basic manners with a trainer.",800,"Everyday"],
 ["s10","🏠","Day boarding","A safe, supervised day while you’re out.",500,"Everyday"]];
+
 var mem={};function php(n){return "₱"+Number(n).toLocaleString("en-PH")}
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return mem[k]!==undefined?mem[k]:d}}
 function sv(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function rm(k){delete mem[k];try{localStorage.removeItem(k)}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+
 function renderSvc(g){$("#svc").innerHTML=svcs.map(function(s,i){if(g!="all"&&s[5]!=g)return"";return '<article class="card"><div class="pic s" aria-hidden="true">'+s[1]+'</div><div class="body"><h3>'+s[2]+'</h3><p style="margin:0;color:var(--muted);font-size:.92rem">'+s[3]+'</p><span class="price">'+php(s[4])+'</span><button class="btn" data-s="'+i+'">Book</button></div></article>'}).join("")}
 renderSvc("all");
+
 document.querySelectorAll(".sf").forEach(function(c){c.onclick=function(){document.querySelectorAll(".sf").forEach(function(x){x.setAttribute("aria-pressed","false")});c.setAttribute("aria-pressed","true");renderSvc(c.dataset.g)}});
+
 var user=null,mode="login",pending=null,curS=null;
 function hash(p,e){var b=new TextEncoder().encode("pp:"+e+":"+p);return crypto.subtle.digest("SHA-256",b).then(function(h){return Array.from(new Uint8Array(h)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")})}
+
 function setAuthUI(){var on=!!user;$("#who").classList.toggle("hide",!on);$("#mine").classList.toggle("hide",!on);$("#adm").classList.toggle("hide",!(on&&user.admin));$("#authbtn").textContent=on?"Log out":"Log in";if(on){$("#who").textContent="Hi, "+user.name;renderBk()}else{$("#blist").innerHTML='<li>Log in to see and manage your appointments. <button class="btn sm" id="lgi">Log in</button></li>'}}
 function setMode(m){mode=m;var s=m=="signup";$("#at").textContent=s?"Create account":"Log in";$("#asub").textContent=s?"Create account":"Log in";$("#nl").classList.toggle("hide",!s);$("#af").n.required=s;$("#tl").setAttribute("aria-pressed",!s);$("#ts").setAttribute("aria-pressed",s);$("#af").p.autocomplete=s?"new-password":"current-password";$("#ae").classList.add("hide")}
+
 function openAuth(m){$("#af").reset();setMode(m||"login");$("#auth").showModal()}
 $("#tl").onclick=function(){setMode("login")};$("#ts").onclick=function(){setMode("signup")};
 $("#acancel").onclick=function(){pending=null;$("#auth").close()};
 $("#authbtn").onclick=function(){if(user){user=null;rm("pp_session");setAuthUI()}else openAuth("login")};
+
 $("#af").onsubmit=function(e){e.preventDefault();var f=e.target,em=f.e.value.trim().toLowerCase(),er=$("#ae");
   function fail(t){er.textContent=t;er.classList.remove("hide")}
   if(!window.crypto||!crypto.subtle)return fail("Your browser can’t create accounts here. Try a current browser over https.");
@@ -385,13 +404,16 @@ $("#af").onsubmit=function(e){e.preventDefault();var f=e.target,em=f.e.value.tri
     else{if(!us[em]||us[em].h!==h)return fail("Email or password is incorrect. Check them or create an account.")}
     user={email:em,name:us[em].name};sv("pp_session",em);$("#auth").close();setAuthUI();
     if(pending!==null){var p=pending;pending=null;openBook(p)}})};
+
 function bkKey(){return "pp_bk_"+user.email}
 function openBook(i){if(!user){pending=i;openAuth("login");return}curS=svcs[i];$("#bt").textContent="Book: "+curS[2];var f=$("#bf");f.reset();f.classList.remove("hide");$("#bdone").classList.add("hide");$("#be").classList.add("hide");
   var t=new Date(),d=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");f.d.min=d;
   f.h.innerHTML=slots.slice().sort().map(function(x){return "<option>"+x+"</option>"}).join("");
   $("#tot").textContent="Total: "+php(curS[4]);$("#bd").showModal()}
+
 document.addEventListener("click",function(e){var b=e.target.closest("[data-s]");if(b)openBook(+b.dataset.s)});
 $("#bcancel").onclick=$("#bclose").onclick=function(){$("#bd").close()};
+
 $("#bf").onsubmit=function(e){e.preventDefault();var f=e.target,list=ld(bkKey(),[]),er=$("#be");
   var dd=new Date(f.d.value+"T00:00");if(!hours[dd.getDay()]){er.textContent="We’re closed on "+days[dd.getDay()]+"s. Pick another day.";er.classList.remove("hide");return}
   if(list.some(function(b){return b.d==f.d.value&&b.h==f.h.value&&b.st!="Cancelled"})){er.textContent="You already have a booking at that date and time. Pick another slot.";er.classList.remove("hide");return}
@@ -400,10 +422,12 @@ $("#bf").onsubmit=function(e){e.preventDefault();var f=e.target,list=ld(bkKey(),
   list.push({id:Date.now(),s:curS[2],price:curS[4],pet:f.pet.value.trim(),t:f.t.value,d:f.d.value,h:f.h.value,pay:paid?pay:"Pay at clinic",st:paid?"Paid":"Unpaid"});sv(bkKey(),list);renderBk();
   f.classList.add("hide");$("#bdone").classList.remove("hide");
   $("#bdone .ok").textContent=curS[2]+" for "+f.pet.value.trim()+" is booked for "+f.d.value+" at "+f.h.value+". "+(paid?"Demo payment of "+php(curS[4])+" via "+pay+" recorded.":"Pay "+php(curS[4])+" at the clinic.")};
+
 function renderBk(){var l=ld(bkKey(),[]);$("#blist").innerHTML=l.length?l.slice().reverse().map(function(b){var c=b.st=="Cancelled";return '<li class="bk"><div><b>'+esc(b.s)+'</b> for '+esc(b.pet)+'<br><small>'+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><div class="acts"><span class="badge'+(b.st=="Paid"?" p":"")+'">'+b.st+'</span>'+(b.st=="Unpaid"?'<button class="btn sm" data-pay="'+b.id+'">Pay now</button>':"")+(c?"":'<button class="btn alt sm" data-x="'+b.id+'">Cancel</button>')+'</div></li>'}).join(""):'<li>No bookings yet. Choose a service above to make your first one.</li>'}
 $("#blist").onclick=function(e){if(e.target.id=="lgi"){openAuth("login");return}var p=e.target.closest("[data-pay]"),x=e.target.closest("[data-x]");if(!p&&!x)return;var l=ld(bkKey(),[]);l.forEach(function(b){if(p&&b.id==p.dataset.pay){b.st="Paid";b.pay="Demo online payment"}if(x&&b.id==x.dataset.x)b.st="Cancelled"});sv(bkKey(),l);renderBk()};
+
 (function(){var em=ld("pp_session",null),us=ld("pp_users",{});if(em===ADMIN.email){user={email:em,name:"Admin",admin:true}}else if(em&&us[em]){user={email:em,name:us[em].name}}setAuthUI()})();
-/* ---- opening hours and bottom tabs ---- */
+
 var hours=ld("pp_hours",[null,[9,18],[9,18],[9,18],[9,18],[9,18],[9,17]]),days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 function fh(h){return (h%12||12)+(h<12?" am":" pm")}
 function status(){var n=new Date(),h=n.getHours()+n.getMinutes()/60,t=hours[n.getDay()],txt="",open=false;
@@ -412,14 +436,13 @@ function status(){var n=new Date(),h=n.getHours()+n.getMinutes()/60,t=hours[n.ge
   document.querySelectorAll(".ostat").forEach(function(el){el.textContent=txt;el.className="ostat pill "+(open?"open":"closed")});
   $("#hrt").innerHTML=[1,2,3,4,5,6,0].map(function(k){return '<tr'+(k==n.getDay()?' class="now"':'')+'><td>'+days[k]+'</td><td>'+(hours[k]?fh(hours[k][0])+" to "+fh(hours[k][1]):"Closed")+'</td></tr>'}).join("")}
 status();setInterval(status,60000);
+
 function setTab(){var line=innerHeight*.4;function cov(s){var r=document.querySelector(s).getBoundingClientRect();return r.top<=line&&r.bottom>line}
   var act=null;document.querySelectorAll(".tabbar a").forEach(function(a){var h=a.getAttribute("href"),m=h=="#top"?scrollY<400:h=="#services"?cov("#services")&&!cov("#bookings"):cov(h);if(m&&!act)act=a});
   document.querySelectorAll(".tabbar a").forEach(function(a){a.classList.toggle("on",a===act);if(a===act)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current")})}
 addEventListener("scroll",setTab,{passive:true});setTab();
-</script>
-<script>
+
 /* ---- admin, login-first ---- */
-(function(){
 var PAL={dog:["#ffd9a8","#ffe9a0","#d8c4a8","#f2c4b0","#c9d9f5","#e4d2f0"],cat:["#d7e6f5","#f5dcc0","#f7e7c4","#cfd8e6","#f6d2a6","#d9e8d6"]};
 window.slots=ld("pp_slots",["09:00","10:00","11:00","12:00","14:00","15:00","16:00"]);
 function rr(){var c=document.querySelector('[data-f][aria-pressed="true"]');render(c?c.dataset.f:"all");if(!$("#grid").children.length)$("#grid").innerHTML='<p class="lede">No pets listed right now.</p>'}
@@ -432,53 +455,30 @@ function rAd(){
   all.sort(function(a,b){return (b[1].d+b[1].h).localeCompare(a[1].d+a[1].h)});
   $("#al").innerHTML=all.length?all.map(function(x){var b=x[1];return '<li class="bk"><div><b>'+esc(b.s)+'</b> for '+esc(b.pet)+'<br><small>'+esc(x[0])+' · '+esc(b.d)+' at '+esc(b.h)+' · '+php(b.price)+' · '+esc(b.pay)+'</small></div><span class="badge'+(b.st=="Paid"?" p":"")+'">'+esc(b.st)+'</span></li>'}).join(""):'<li>No bookings yet.</li>';
 }
+
 $("#adm").onclick=function(){rAd();$("#ad").showModal()};
 $("#aclose").onclick=function(){$("#ad").close()};
+
 document.querySelectorAll(".atab").forEach(function(b){b.onclick=function(){document.querySelectorAll(".atab").forEach(function(x){x.setAttribute("aria-pressed",x===b)});["ap","as","ab"].forEach(function(id){$("#"+id).classList.toggle("hide",id!=b.dataset.t)})}});
+
 $("#pf").onsubmit=function(e){e.preventDefault();var f=e.target,ty=f.ty.value,pl=PAL[ty];
   pets.unshift([f.n.value.trim(),Math.max(0,parseInt(f.a.value,10)||0),f.b.value.trim(),f.g.value,ty,pl[Math.floor(Math.random()*pl.length)]]);
   sv("pp_pets",pets);f.reset();leash();rr();rAd()};
+
 $("#sf2").onsubmit=function(e){e.preventDefault();var t=e.target.t.value;if(slots.indexOf(t)<0)slots.push(t);sv("pp_slots",slots);e.target.reset();rAd()};
+
 $("#hf").onchange=function(e){var t=e.target,d=t.dataset,k=d.hk!==undefined?d.hk:d.ho!==undefined?d.ho:d.hc;if(k===undefined)return;
   if(d.hk!==undefined)hours[k]=t.checked?null:[9,18];
   else{var h=hours[k];h[d.ho!==undefined?0:1]=+t.value;if(h[1]<=h[0]){if(d.ho!==undefined)h[1]=Math.min(h[0]+1,22);else h[0]=Math.max(h[1]-1,5)}}
   sv("pp_hours",hours);status();rAd()};
+
 $("#ad").addEventListener("click",function(e){var p=e.target.closest("[data-rp]"),s=e.target.closest("[data-rs]");
   if(p){pets.splice(+p.dataset.rp,1);sv("pp_pets",pets);leash();rr();rAd()}
   if(s){slots=slots.filter(function(t){return t!=s.dataset.rs});sv("pp_slots",slots);rAd()}});
+
 var oa=openAuth;openAuth=function(m){document.body.classList.add("blur");oa(m)};
 $("#auth").addEventListener("close",function(){document.body.classList.remove("blur")});
 if(!user)openAuth("login");
-})();
- <style>
-  iframe#netlify-badge, a[href*="netlify.com/why-netlify"] {
-    display: none !important;
-  }
-</style>
-
-<script>
-  document.addEventListener('click', function(e) {
-    // 1. Handle Admin button click
-    const adminBtn = e.target.closest('#adm');
-    if (adminBtn) {
-      if (typeof rAd === 'function') rAd();
-      const adminModal = document.querySelector('#ad');
-      if (adminModal) {
-        if (typeof adminModal.showModal === 'function') {
-          adminModal.showModal();
-        } else {
-          adminModal.style.display = 'block';
-        }
-      }
-    }
-
-    // 2. Handle Book buttons click
-    const bookBtn = e.target.closest('button');
-    if (bookBtn && bookBtn.textContent.trim().startsWith('Book')) {
-      const appointmentsTab = document.querySelector('[href*="appointments"]') || document.querySelector('.tabbar a:nth-child(2)');
-      if (appointmentsTab) appointmentsTab.click();
-    }
-  });
 </script>
 </body>
 </html>
